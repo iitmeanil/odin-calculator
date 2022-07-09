@@ -1,6 +1,23 @@
-// start with capturing user input and displaying it on screen. 
+// start with capturing user input 
+// and displaying it on screen. 
 
 
+const buttons = document.querySelectorAll(".button");
+const screen = document.querySelector(".screen");
+let inputArr = [];
+buttons.forEach((button) => {
+button.addEventListener ('click', processClick)
+});
+
+
+// three things can happen - 
+//1. presses numbers or ., then all gets concatenated. 
+// 2. operators, then previous numbers gets added to processing array and operator gets a
+
+function processClick(e) {
+    console.log(e.target.id);
+
+}
 
 
 
