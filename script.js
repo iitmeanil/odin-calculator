@@ -3,16 +3,18 @@
 
 
 
-let screenArr = []; // what gets displayed on the screen 
-let num; // number that is getting entered with every click
+let screenTxt = ""; // what gets displayed on the screen 
+let num = ""; // number that is getting entered with every click
 let processingArr = []; // this will have all the elements for processing when one presses ""="
 
 const buttons = document.querySelectorAll(".button");
-const screen = document.querySelector(".screen");
+const display = document.querySelector(".screen");
 
 buttons.forEach((button) => {
 button.addEventListener ('click', processClick)
 });
+
+
 
 
 // three things can happen - 
@@ -35,21 +37,28 @@ function processClick(e) {
         case "8":
         case "9":
         case ".":
-            console.log("Number");
+            //console.log("Number");
+            num += e.target.id;
+            screenTxt += e.target.id;
             break;
         case "*":
         case "/":
         case "+":
         case "-":
-            console.log("Operator");
+            //console.log("Operator");
+            screenTxt += e.target.id;
+            processingArr.push(num);
+            num = "";
+            processingArr.push(e.target.id);
             break;
         case "=":
-            console.log("equal");             
-    
+            //console.log("equal");             
     }
-
+    display.textContent = screenTxt;
+    //console.log(num);
+    //console.log(processingArr);
+    
 }
-
 
 
 function add(a,b){
