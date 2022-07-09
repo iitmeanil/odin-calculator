@@ -52,13 +52,33 @@ function processClick(e) {
             processingArr.push(e.target.id);
             break;
         case "=":
-            //console.log("equal");             
+            //console.log("equal"); 
+            processingArr.push(num);
+            num = "";
+            processEquation();            
     }
     display.textContent = screenTxt;
     //console.log(num);
-    //console.log(processingArr);
-    
+    console.log(processingArr);
 }
+
+function processEquation () {
+   
+   // first process the mults, then / then + and then -
+   while (processingArr.findIndex((element) => findElement(element,"*"))){
+    let index = processingArr.findIndex((element) => findElement(element,"*"));
+    let solution = operate (processingArr[index -1],processingArr[index + 1],processingArr[index]);
+    //console.log(index);
+    let newArr = [...processingArr.slice(0,index-1),solution,...processingArr.slice(index+2)];
+    console.log(`newArr: ${newArr}`);
+   }
+
+   function findElement (element,operator) {
+    if (element === operator) return true;
+   }
+
+}
+
 
 
 function add(a,b){
