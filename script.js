@@ -40,6 +40,7 @@ function processClick(e) {
             //console.log("Number");
             num += e.target.id;
             screenTxt += e.target.id;
+            display.textContent = screenTxt;
             break;
         case "*":
         case "/":
@@ -50,28 +51,50 @@ function processClick(e) {
             processingArr.push(num);
             num = "";
             processingArr.push(e.target.id);
+            display.textContent = screenTxt;
             break;
         case "=":
             //console.log("equal"); 
             processingArr.push(num);
             num = "";
+            display.textContent = screenTxt;
+            screenTxt = "";
             processEquation();            
     }
-    display.textContent = screenTxt;
-    //console.log(num);
+    
     console.log(processingArr);
 }
 
 function processEquation () {
    
    // first process the mults, then / then + and then -
-   while (processingArr.findIndex((element) => findElement(element,"*"))){
-    let index = processingArr.findIndex((element) => findElement(element,"*"));
-    let solution = operate (processingArr[index -1],processingArr[index + 1],processingArr[index]);
-    //console.log(index);
-    let newArr = [...processingArr.slice(0,index-1),solution,...processingArr.slice(index+2)];
-    console.log(`newArr: ${newArr}`);
-   }
+   processAll("*");
+   processAll("/");
+   processAll("+");
+   processAll("-");   
+   display.textContent = processingArr[0];
+    processingArr = [];
+   
+    //checks multiple times and checks for an operator and works on the number around the operator, then removes the sub equation, replacing with solution
+   function processAll(operator){
+       let index = processingArr.findIndex((element) => findElement(element,operator));
+       let solution = 0;
+       let newArr = [];
+   
+        while (index > 0) {
+            solution = operate (processingArr[index -1],processingArr[index + 1],processingArr[index]);
+            newArr = [...processingArr.slice(0,index-1),solution,...processingArr.slice(index+2)];
+            processingArr = newArr;
+            console.log(index);
+            console.log(`newArr: ${newArr}`);
+            index = processingArr.findIndex((element) => findElement(element,"*"));
+            console.log(index);
+        }
+        return;
+    }
+    
+
+
 
    function findElement (element,operator) {
     if (element === operator) return true;
