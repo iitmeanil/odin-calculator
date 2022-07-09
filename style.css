@@ -53,12 +53,12 @@ h1 {
     justify-content: center;
     font-weight: 800;
     border-radius: 15px;
-    box-shadow: 0 3px rgb(51, 50, 50);
+    box-shadow: 0 3px rgb(116, 115, 115);
     transition: transform 50ms;
 }
 
 .button:active {
-    background-color: darkblue;
+    background-color: rgb(82, 193, 230);
     color: white;
     transform: translateY(3px)
 }

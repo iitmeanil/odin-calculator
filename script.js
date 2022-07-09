@@ -55,6 +55,10 @@ function processClick(e) {
             break;
         case "=":
             //console.log("equal"); 
+            if (num === "") {
+                alert("Check your equation");
+                break;
+            }
             processingArr.push(num);
             num = "";
             display.textContent = screenTxt;
@@ -117,7 +121,14 @@ function multiply(a,b){
 }
 
 function divide(a,b){
-    return +a / +b;
+    if(+b === 0){
+        alert ("cant divide by 0 - check your equation")
+        screenTxt = "";
+        num = 0;
+        processingArr = [];
+        return;
+    }
+    return Math.round( (+a / +b)*100)/100 ; // ensures only two decimal is sent out
 }
 
 function operate (a,b,operator){
