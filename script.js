@@ -43,12 +43,17 @@ function processClick(e) {
             break;
         case "back":
             if (num === "" && screenTxt != "") {
+                console.log(`removing operator, screen = ${screenTxt}`);
                 screenTxt = screenTxt.slice(0,-1);
                 processingArr.pop();
+                num = processingArr[processingArr.length - 1];
+                console.log(processingArr[processingArr.length - 1]);
+                processingArr.pop();
+                console.log(screenTxt);
+
                 display.textContent = screenTxt;
                 //processingArr.length = processingArr.length -1;
-            } 
-            if (num != "") {
+            } else if (num != "") {
                 screenTxt = screenTxt.slice(0,-1);
                 num = num.slice(0,-1);
                 display.textContent = screenTxt;
