@@ -27,6 +27,13 @@ function processClick(e) {
     //console.log(typeof(e.target.id));
 
     switch (e.target.id) {
+        case "C":
+            num = "";
+            screenTxt ="";
+            processingArr =[];
+            display.textContent = screenTxt;
+            addButtonAgain();
+            break;
         case "0":
         case "1":
         case "2":
@@ -37,12 +44,12 @@ function processClick(e) {
         case "7":
         case "8":
         case "9":
-             //console.log("Number");
+                 //console.log("Number");
             num += e.target.id;
             screenTxt += e.target.id;
             display.textContent = screenTxt;
             break;
-        case ".":
+        case ".": //in this case we have to disable the button till operator or = is pressed.
             num += e.target.id;
             screenTxt += e.target.id;
             display.textContent = screenTxt;
@@ -62,13 +69,7 @@ function processClick(e) {
             num = "";
             processingArr.push(e.target.id);
             display.textContent = screenTxt;
-            removedElement = document.querySelector(".removed");
-            if (removedElement) {
-                removedElement.addEventListener("click",processClick);
-                removedElement.classList.add("button");
-                removedElement.classList.remove("removed");
-                //console.log(removedElement.classList.value);
-            };
+            addButtonAgain();
             break;
         case "=":
             //console.log("equal"); 
@@ -80,18 +81,23 @@ function processClick(e) {
             num = "";
             display.textContent = screenTxt;
             screenTxt = "";
-            removedElement = document.querySelector(".removed");
-            if (removedElement) {
-                removedElement.addEventListener("click",processClick);
-                removedElement.classList.add("button");
-                removedElement.classList.remove("removed");
-                //console.log(removedElement.classList.value);
-            };
+            addButtonAgain();
             console.log(`before processing: ${processingArr}`);
             processEquation();            
     }
     
     console.log(processingArr);
+}
+
+//adds the event listener for . button
+function addButtonAgain (){ 
+    removedElement = document.querySelector(".removed");
+    if (removedElement) {
+        removedElement.addEventListener("click",processClick);
+        removedElement.classList.add("button");
+        removedElement.classList.remove("removed");
+        //console.log(removedElement.classList.value);
+    };
 }
 
 function processEquation () {
@@ -175,4 +181,3 @@ switch(operator) {
         break;    
 }
 }
-

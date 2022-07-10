@@ -45,7 +45,7 @@ h1 {
     flex: 0 1 auto;
     text-align: center;
     background-color: lightblue;
-    height: 50px;
+    height: 40px;
     width: 50px;
     font-size: large;
     display: flex;
@@ -56,11 +56,32 @@ h1 {
     box-shadow: 0 3px rgb(116, 115, 115);
     transition: transform 50ms;
 }
-
 .button:active {
     background-color: rgb(82, 193, 230);
     color: white;
     transform: translateY(3px)
+}
+
+.button.operator {
+    background-color: rgb(132, 231, 159);
+ }
+
+.button.operator:active {
+    background-color: rgb(18, 237, 76);
+}
+
+.button.equal,
+.button.special {
+    background-color: rgb(152, 151, 151);
+ }
+
+.button.equal:active,
+.button.special:active {
+    background-color: rgb(65, 64, 64);
+}
+
+.button.special {
+    width: 120px;
 }
 
 .removed {
