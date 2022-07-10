@@ -34,6 +34,20 @@ function processClick(e) {
             display.textContent = screenTxt;
             addButtonAgain();
             break;
+        case "back":
+            if (num === "" && screenTxt != "") {
+                screenTxt = screenTxt.slice(0,-1);
+                processingArr.pop();
+                display.textContent = screenTxt;
+                //processingArr.length = processingArr.length -1;
+            } 
+            if (num != "") {
+                screenTxt = screenTxt.slice(0,-1);
+                num = num.slice(0,-1);
+                display.textContent = screenTxt;
+             }
+            console.log(`back: ${processingArr}`);
+            break;
         case "0":
         case "1":
         case "2":
@@ -65,7 +79,7 @@ function processClick(e) {
         case "-":
             //console.log("Operator");
             screenTxt += e.target.id;
-            processingArr.push(num);
+            if (num != "") processingArr.push(num);
             num = "";
             processingArr.push(e.target.id);
             display.textContent = screenTxt;
@@ -73,9 +87,11 @@ function processClick(e) {
             break;
         case "=":
             //console.log("equal"); 
-            if (num === "") {
-                alert("Check your equation");
-                break;
+            if (processingArr[processingArr.length - 1] === "*" || processingArr[processingArr.length - 1] === "/" || processingArr[processingArr.length - 1] === "+" || processingArr[processingArr.length - 1] === "-") {
+                if (num === ""){ 
+                    alert("Check your equation");
+                    break;
+                }
             }
             processingArr.push(num);
             num = "";
@@ -107,7 +123,7 @@ function processEquation () {
    processAll("/");
    processAll("+");
    processAll("-");   
-   display.textContent = processingArr[0];
+   display.textContent = Math.round(processingArr[0]*10)/10;
     processingArr = [];
    
     //checks multiple times and checks for an operator and works on the number around the operator, then removes the sub equation, replacing with solution
