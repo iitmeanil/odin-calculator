@@ -9,6 +9,7 @@ let processingArr = []; // this will have all the elements for processing when o
 
 const buttons = document.querySelectorAll(".button");
 const display = document.querySelector(".screen");
+let removedElement;
 
 buttons.forEach((button) => {
 button.addEventListener ('click', processClick)
@@ -36,11 +37,20 @@ function processClick(e) {
         case "7":
         case "8":
         case "9":
-        case ".":
-            //console.log("Number");
+             //console.log("Number");
             num += e.target.id;
             screenTxt += e.target.id;
             display.textContent = screenTxt;
+            break;
+        case ".":
+            num += e.target.id;
+            screenTxt += e.target.id;
+            display.textContent = screenTxt;
+            e.target.classList.remove("button");
+            e.target.classList.add("removed");
+            removedElement = document.querySelector(".removed");
+            removedElement.removeEventListener("click",processClick);
+            console.log(e.target.classList.value);
             break;
         case "*":
         case "/":
@@ -52,6 +62,13 @@ function processClick(e) {
             num = "";
             processingArr.push(e.target.id);
             display.textContent = screenTxt;
+            removedElement = document.querySelector(".removed");
+            if (removedElement) {
+                removedElement.addEventListener("click",processClick);
+                removedElement.classList.add("button");
+                removedElement.classList.remove("removed");
+                //console.log(removedElement.classList.value);
+            };
             break;
         case "=":
             //console.log("equal"); 
@@ -63,6 +80,14 @@ function processClick(e) {
             num = "";
             display.textContent = screenTxt;
             screenTxt = "";
+            removedElement = document.querySelector(".removed");
+            if (removedElement) {
+                removedElement.addEventListener("click",processClick);
+                removedElement.classList.add("button");
+                removedElement.classList.remove("removed");
+                //console.log(removedElement.classList.value);
+            };
+            console.log(`before processing: ${processingArr}`);
             processEquation();            
     }
     
@@ -91,7 +116,7 @@ function processEquation () {
             processingArr = newArr;
             console.log(index);
             console.log(`newArr: ${newArr}`);
-            index = processingArr.findIndex((element) => findElement(element,"*"));
+            index = processingArr.findIndex((element) => findElement(element,operator));
             console.log(index);
         }
         return;
