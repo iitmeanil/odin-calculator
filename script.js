@@ -10,12 +10,19 @@ let processingArr = []; // this will have all the elements for processing when o
 const buttons = document.querySelectorAll(".button");
 const display = document.querySelector(".screen");
 let removedElement;
+const dotElement = document.querySelector(".dot");
 
 buttons.forEach((button) => {
-button.addEventListener ('click', processClick)
+button.addEventListener ('click', (e) => processClick(e.target.id));
 });
 
 
+const myDoc = document.querySelector("body");
+myDoc.addEventListener('keypress', (e) => processClick(e.key));
+
+function onKey (e) {
+    console.log(e.key);
+}
 
 
 // three things can happen - 
@@ -23,10 +30,10 @@ button.addEventListener ('click', processClick)
 //2. operators, then previous numbers gets added to processing array and operator gets added to processing array
 //3. presses = then clears the screen and we need to process the processing string 
 function processClick(e) {
-    //console.log(e.target.id);
-    //console.log(typeof(e.target.id));
+    //console.log(e);
+    //console.log(typeof(e));
 
-    switch (e.target.id) {
+    switch (e) {
         case "C":
             num = "";
             screenTxt ="";
@@ -59,29 +66,29 @@ function processClick(e) {
         case "8":
         case "9":
                  //console.log("Number");
-            num += e.target.id;
-            screenTxt += e.target.id;
+            num += e;
+            screenTxt += e;
             display.textContent = screenTxt;
             break;
         case ".": //in this case we have to disable the button till operator or = is pressed.
-            num += e.target.id;
-            screenTxt += e.target.id;
+            num += e;
+            screenTxt += e;
             display.textContent = screenTxt;
-            e.target.classList.remove("button");
-            e.target.classList.add("removed");
+            dotElement.classList.remove("button");
+            dotElement.classList.add("removed");
             removedElement = document.querySelector(".removed");
             removedElement.removeEventListener("click",processClick);
-            console.log(e.target.classList.value);
+            console.log(dotElement.classList.value);
             break;
         case "*":
         case "/":
         case "+":
         case "-":
             //console.log("Operator");
-            screenTxt += e.target.id;
+            screenTxt += e;
             if (num != "") processingArr.push(num);
             num = "";
-            processingArr.push(e.target.id);
+            processingArr.push(e);
             display.textContent = screenTxt;
             addButtonAgain();
             break;
